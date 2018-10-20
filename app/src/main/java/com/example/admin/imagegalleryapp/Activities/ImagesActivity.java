@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.admin.imagegalleryapp.Adapters.MyItemDecoration;
@@ -44,6 +46,7 @@ public class ImagesActivity extends BaseActivity implements CustomAlertDialogLis
         OnSuccessResponseListener, OnFailedResponseListener {
     private ImagesManager imagesManager;
     private RecyclerView imageRecyclerView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,8 @@ public class ImagesActivity extends BaseActivity implements CustomAlertDialogLis
         setContentView(R.layout.activity_images);
         imageRecyclerView = findViewById(R.id.recyclerView);
         imageRecyclerView.addItemDecoration(new MyItemDecoration());
-//        imageRecyclerView.setNestedScrollingEnabled(false);
-
+        progressBar = findViewById(R.id.images_progressbar);
+        progressBar.setVisibility(View.VISIBLE);
         sendRequest(ImagesActivity.this, ImagesActivity.this, "GET", WebserverConstants.endPointURL);
     }
 
@@ -78,6 +81,12 @@ public class ImagesActivity extends BaseActivity implements CustomAlertDialogLis
 
     @Override
     public void onResponseFailed() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         showAlert(ImagesActivity.this, ImagesActivity.this, null);
     }
 
@@ -90,6 +99,7 @@ public class ImagesActivity extends BaseActivity implements CustomAlertDialogLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        progressBar.setVisibility(View.GONE);
                         RecyclerAdapter myAdapter = new RecyclerAdapter(ImagesActivity.this, imagesManager.getRecentImagesList());
                         imageRecyclerView.setAdapter(myAdapter);
                         GridLayoutManager layoutManager = new GridLayoutManager(ImagesActivity.this, 3);
