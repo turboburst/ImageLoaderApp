@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ImageGalleryApp</string>
+    <string name="defaultmessage_alert">Error, try again later</string>
+    <string name="button_text_alertdialog">OK</string>
+</resources>

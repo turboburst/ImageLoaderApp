@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_height_alertdialog">40dp</dimen>
+    <dimen name="textsize_alertdialog">14dp</dimen>
+    <dimen name="buttontext_size_alertdialog">14dp</dimen>
+    <dimen name="buttonmargin_alergdialog">10dp</dimen>
+    <dimen name="dialog_width">250dp</dimen>
+    <dimen name="dialog_height">200dp</dimen>
+    <dimen name="image_dialog_height">300dp</dimen>
+</resources>
